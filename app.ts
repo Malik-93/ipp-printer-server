@@ -23,7 +23,8 @@ app.post(
   async (req: Request, res: Response) => {
     //@ts-ignore
     const filePath = `${req.file.path}`
-    const printCount = req.body.copies
+    // const printCount = req.body.copies
+    const printCount = req.body?.copies === 'undefined' ? 1 : req.body?.copies
     console.log(printCount)
     try {
       // console.log('filePath', filePath);
@@ -62,7 +63,6 @@ app.post(
     }
   },
 )
-
 app.listen(port, async () => {
   console.log(`${process.env.PROJECT} is listening on http://localhost:${port}`)
   logger.info(`${process.env.PROJECT} is listening on http://localhost:${port}`)
