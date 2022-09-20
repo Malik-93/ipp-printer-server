@@ -1,0 +1,48 @@
+{
+  message: 'PRINTER-APP is listening on http://localhost:9000',
+  level: 'info',
+  service: 'PRINTER-APP',
+  timestamp: '2022-09-19T06:23:29.220Z'
+}
+{
+  message: 'PRINTER-APP is listening on http://localhost:9000',
+  level: 'info',
+  service: 'PRINTER-APP',
+  timestamp: '2022-09-19T06:23:47.547Z'
+}
+{
+  message: 'PRINTER-APP is listening on http://localhost:9000',
+  level: 'info',
+  service: 'PRINTER-APP',
+  timestamp: '2022-09-19T06:25:02.297Z'
+}
+{
+  message: 'uploads/file-48bed980b4fc8bb299e82e67af278c55128eaa57.pdf file has been deleted..',
+  level: 'info',
+  service: 'PRINTER-APP',
+  timestamp: '2022-09-19T17:29:51.070Z'
+}
+{
+  message: 'PRINTER-APP is listening on http://localhost:9000',
+  level: 'info',
+  service: 'PRINTER-APP',
+  timestamp: '2022-09-19T17:31:36.048Z'
+}
+{
+  message: 'undefined is listening on http://localhost:9000',
+  level: 'info',
+  service: undefined,
+  timestamp: '2022-09-20T18:19:15.046Z'
+}
+{
+  message: 'undefined is listening on http://localhost:9000',
+  level: 'info',
+  service: undefined,
+  timestamp: '2022-09-20T18:21:22.949Z'
+}
+{
+  message: 'undefined is listening on http://localhost:9000',
+  level: 'info',
+  service: undefined,
+  timestamp: '2022-09-20T18:23:08.157Z'
+}
