@@ -7,7 +7,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import { FullRequest, Printer } from 'ipp'
 import { unlinkFile } from './utils'
-import http from 'http';
+import https from 'https';
 
 import { networkInterfaces } from 'os';
 
@@ -57,25 +57,6 @@ app.get('/', function (req: Request, res: Response) {
   return res.status(200).json({ active: true, message: 'Printer server is up' })
 })
 app.use(cors());
-// Add headers before the routes are defined
-app.use(function (req, res, next) {
-
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', `http://${networkIP}:${port}`);
-
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', 'false');
-
-  // Pass to next layer of middleware
-  next();
-});
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))) //  "public" off of current is root
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
@@ -110,10 +91,10 @@ app.post(
         printer.execute('Print-Job', msg, function (err: Error, _res: any) {
           unlinkFile(filePath)
           if (err) {
-            console.log(err)
+            console.log('__Error__', err)
             return res
-              .status(500)
-              .json({ success: false, message: 'An error accured :', err })
+              .status(200)
+              .json({ success: false, statusCode: 500, Error: `${err}` })
           }
           console.log(_res)
           return res
@@ -127,15 +108,19 @@ app.post(
       logger.error(`Print error -> ${JSON.stringify(error)}`)
       unlinkFile(filePath)
       return res
-        .status(500)
-        .json({ success: false, message: 'Ooops! Something went wrong...' })
+        .status(200)
+        .json({ success: false, statusCode: 500, message: 'Ooops! Something went wrong...' })
     }
   },
 )
-const server = http.createServer(app)
+const httpsOptions = {
+  key: fs.readFileSync(path.resolve(__dirname, './local-https-cert/localhost-key.pem')),
+  cert: fs.readFileSync(path.resolve(__dirname, './local-https-cert/localhost.pem')),
+}
+const server = https.createServer(httpsOptions, app)
 server.listen(port, `${networkIP}`, undefined, () => {
-  console.log(`${process.env.PROJECT} is listening on http://${networkIP}:${port}`)
-  logger.info(`${process.env.PROJECT} is listening on http://${networkIP}:${port}`)
+  console.log(`${process.env.PROJECT} is listening on https://${networkIP}:${port}`)
+  logger.info(`${process.env.PROJECT} is listening on https://${networkIP}:${port}`)
 })
 
 export default server

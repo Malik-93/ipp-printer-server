@@ -46,3 +46,117 @@
   service: undefined,
   timestamp: '2022-09-20T18:23:08.157Z'
 }
+{
+  message: 'IPP-PRINTER-APP is listening on http://192.168.0.101:9000',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T13:56:28.378Z'
+}
+{
+  message: 'IPP-PRINTER-APP is listening on https://192.168.0.101:9000',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T13:56:36.712Z'
+}
+{
+  message: 'uploads/file-5d4e717481ce0cd306d8d3acbfc82a82c1148f7e.pdf file has been deleted..',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T13:57:44.826Z'
+}
+{
+  message: 'IPP-PRINTER-APP is listening on https://192.168.0.101:9000',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:01:47.950Z'
+}
+{
+  message: 'uploads/file-6467dcb3688dfb0548cdaaed10cdbfaea08dffb2.pdf file has been deleted..',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:01:55.976Z'
+}
+{
+  message: 'IPP-PRINTER-APP is listening on https://192.168.0.101:9000',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:02:34.793Z'
+}
+{
+  message: 'uploads/file-8dc87d8c4d8014ade9687b440b1ee1dfe78f7699.pdf file has been deleted..',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:02:42.283Z'
+}
+{
+  message: 'IPP-PRINTER-APP is listening on https://192.168.0.101:9000',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:03:02.111Z'
+}
+{
+  message: 'uploads/file-fa51d0ebe8073a454596a799f7d943a424028fbb.pdf file has been deleted..',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:03:13.953Z'
+}
+{
+  message: 'IPP-PRINTER-APP is listening on https://192.168.0.101:9000',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:03:47.140Z'
+}
+{
+  message: 'IPP-PRINTER-APP is listening on https://192.168.0.101:9000',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:04:51.010Z'
+}
+{
+  message: 'uploads/file-53a8f6c730e0aed3853d4140934a3dd13563ffbf.pdf file has been deleted..',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:05:03.814Z'
+}
+{
+  message: 'IPP-PRINTER-APP is listening on https://192.168.0.101:9000',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:05:30.750Z'
+}
+{
+  message: 'IPP-PRINTER-APP is listening on https://192.168.0.101:9000',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:05:54.222Z'
+}
+{
+  message: 'IPP-PRINTER-APP is listening on https://192.168.0.101:9000',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:06:12.773Z'
+}
+{
+  message: 'uploads/file-90c21cf4c5e97f1380eb5958cc3b196c146e8a7d.pdf file has been deleted..',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:06:19.962Z'
+}
+{
+  message: 'IPP-PRINTER-APP is listening on https://192.168.0.101:9000',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:07:01.504Z'
+}
+{
+  message: 'IPP-PRINTER-APP is listening on https://192.168.0.101:9000',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:07:29.858Z'
+}
+{
+  message: 'uploads/file-be8705c284f60bde326b96975cfbd6e68711d1a3.pdf file has been deleted..',
+  level: 'info',
+  service: 'IPP-PRINTER-APP',
+  timestamp: '2022-10-01T14:07:36.650Z'
+}
