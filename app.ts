@@ -24,6 +24,9 @@ app.get('/get_remote_ipv4', function (req: Request, res: Response) {
   let ipv4 = req.socket.remoteAddress;
   // console.log('__SOCKET__', req.socket.address());
   // console.log('__IPV4__', ipv4);
+  var ipAddr = req.headers["x-forwarded-for"];
+  console.log('__ipAddr__', ipAddr);
+
   return res.status(200).json({ active: true, message: 'Printer server is up', ipv4, ...req.socket.address() })
 })
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))) //  "public" off of current is root
