@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/app.js",
     "dev": "nodemon app.ts",
-    "build": "tsc",
+    "build": "tsc && cp *.pem ./dist",
     "compile": "tsc"
   },
   "author": "",

@@ -6,55 +6,23 @@ import fs from 'fs'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import { FullRequest, Printer } from 'ipp'
-import { unlinkFile } from './utils'
+import { unlinkFile, get_network_ipv4 } from './utils'
 import https from 'https';
 
-import { networkInterfaces } from 'os';
 
-const nets = networkInterfaces();
-let networkIP = '';
 
-for (const name of Object.keys(nets)) {
-  // @ts-ignore
-  for (const net of nets[name]) {
-    // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
-    // 'IPv4' is in Node <= 17, from 18 it's a number 4 or 6
-    const familyV4Value = typeof net.family === 'string' ? 'IPv4' : 4
-    if (net.family === familyV4Value && !net.internal) {
-      networkIP = net.address
-    }
-  }
-}
-console.log('networkIP', networkIP);
-
-// import localtunnel from 'localtunnel';
-
-// (async () => {
-//   const tunnel = await localtunnel({ port: 9000 });
-//   console.log('tunnel', tunnel.url);
-//   // the assigned public url for your tunnel
-//   // i.e. https://abcdefgjhij.localtunnel.me
-//   tunnel.url;
-
-//   tunnel.on('close', () => {
-//     // tunnels are closed
-//   });
-// })();
-// import net from 'net'
-// @ts-ignore
-// console.log(net.);
-// @ts-ignore
-
-// console.log(net.isIPv4());
-// @ts-ignore
-
-// console.log(net.isIPv6());
 
 dotenv.config()
+let networkIP = get_network_ipv4();
 const app: Application = express()
 const port: number = Number(process.env.PORT) || 9000
 app.get('/', function (req: Request, res: Response) {
   return res.status(200).json({ active: true, message: 'Printer server is up' })
+})
+app.get('/get_remote_ipv4', function (req: Request, res: Response) {
+  let ipv4 = req.socket.remoteAddress;
+  console.log('__IPV4__', ipv4);
+  return res.status(200).json({ active: true, message: 'Printer server is up', ipv4 })
 })
 app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))) //  "public" off of current is root
@@ -64,7 +32,7 @@ app.post(
   '/print',
   upload('uploads').single('file'),
   async (req: Request, res: Response) => {
-    console.log('RAN ====================================');
+    console.log('__RAN__');
     //@ts-ignore
     const filePath = `${req.file.path}`
     // const printCount = req.body.copies
@@ -114,8 +82,8 @@ app.post(
   },
 )
 const httpsOptions = {
-  key: fs.readFileSync(path.resolve(__dirname, './local-https-cert/localhost-key.pem')),
-  cert: fs.readFileSync(path.resolve(__dirname, './local-https-cert/localhost.pem')),
+  key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
+  cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
 }
 const server = https.createServer(httpsOptions, app)
 server.listen(port, `${networkIP}`, undefined, () => {
