@@ -90,6 +90,7 @@ app.post(
 let server = http.createServer(app);
 if (process.env.NODE_ENV === 'development') {
   let networkIP = get_network_ipv4();
+  // let networkIP = `103.170.179.56`;
   const httpsOptions = {
     key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
     cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
