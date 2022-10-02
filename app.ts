@@ -53,29 +53,15 @@ console.log('networkIP', networkIP);
 dotenv.config()
 const app: Application = express()
 const port: number = Number(process.env.PORT) || 9000
+app.use(cors());
 app.get('/', function (req: Request, res: Response) {
   return res.status(200).json({ active: true, message: 'Printer server is up' })
 })
-app.use(cors());
-// Add headers before the routes are defined
-app.use(function (req, res, next) {
-
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', `http://${networkIP}:${port}`);
-
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', 'false');
-
-  // Pass to next layer of middleware
-  next();
-});
+app.get('/get_remote_ipv4', function (req: Request, res: Response) {
+  let ipv4 = req.socket.remoteAddress;
+  console.log('__IPV4__', ipv4);
+  return res.status(200).json({ active: true, message: 'Printer server is up', ipv4 })
+})
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))) //  "public" off of current is root
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
