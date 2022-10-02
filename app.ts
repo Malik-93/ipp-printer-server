@@ -13,7 +13,6 @@ import https from 'https';
 
 
 dotenv.config()
-let networkIP = get_network_ipv4();
 const app: Application = express()
 const port: number = Number(process.env.PORT) || 9000
 app.use(cors());
@@ -86,9 +85,17 @@ const httpsOptions = {
   cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
 }
 const server = https.createServer(httpsOptions, app)
-server.listen(port, `${networkIP}`, undefined, () => {
-  console.log(`${process.env.PROJECT} is listening on https://${networkIP}:${port}`)
-  logger.info(`${process.env.PROJECT} is listening on https://${networkIP}:${port}`)
-})
+if (process.env.NODE_ENV === 'development') {
+  let networkIP = get_network_ipv4();
+  server.listen(port, `${networkIP}`, undefined, () => {
+    console.log(`${process.env.PROJECT} is listening on https://${networkIP}:${port}`)
+    logger.info(`${process.env.PROJECT} is listening on https://${networkIP}:${port}`)
+  })
+} else {
+  server.listen(port, () => {
+    console.log(`${process.env.PROJECT} is listening at PORT ${port}`)
+    logger.info(`${process.env.PROJECT} is listening at PORT ${port}`)
+  })
+}
 
 export default server
