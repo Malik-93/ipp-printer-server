@@ -16,6 +16,7 @@ dotenv.config()
 let networkIP = get_network_ipv4();
 const app: Application = express()
 const port: number = Number(process.env.PORT) || 9000
+app.use(cors());
 app.get('/', function (req: Request, res: Response) {
   return res.status(200).json({ active: true, message: 'Printer server is up' })
 })
@@ -24,7 +25,6 @@ app.get('/get_remote_ipv4', function (req: Request, res: Response) {
   console.log('__IPV4__', ipv4);
   return res.status(200).json({ active: true, message: 'Printer server is up', ipv4 })
 })
-app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))) //  "public" off of current is root
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
