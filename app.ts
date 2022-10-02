@@ -24,10 +24,10 @@ app.get('/get_remote_ipv4', function (req: Request, res: Response) {
   let ipv4 = req.socket.remoteAddress;
   // console.log('__SOCKET__', req.socket.address());
   // console.log('__IPV4__', ipv4);
-  var ipAddr = req.headers["x-forwarded-for"];
-  console.log('__ipAddr__', ipAddr);
+  var client_local_ip = req.headers["x-forwarded-for"];
+  console.log('__client_local_ip__', client_local_ip);
 
-  return res.status(200).json({ active: true, message: 'Printer server is up', ipv4, ...req.socket.address() })
+  return res.status(200).json({ active: true, message: 'Printer server is up', ip_info: { ...req.socket.address(), client_local_ip } })
 })
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))) //  "public" off of current is root
 app.use(express.urlencoded({ extended: false }))
