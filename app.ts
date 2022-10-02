@@ -21,11 +21,12 @@ app.get('/', function (req: Request, res: Response) {
   return res.status(200).json({ active: true, message: 'Printer server is up' })
 })
 app.get('/get_remote_ipv4', function (req: Request, res: Response) {
-  let ipv4 = req.socket.remoteAddress;
+  const client_local_ip = req.headers["x-forwarded-for"];
+
+  // const ipv4 = req.socket.remoteAddress;
   // console.log('__SOCKET__', req.socket.address());
   // console.log('__IPV4__', ipv4);
-  var client_local_ip = req.headers["x-forwarded-for"];
-  console.log('__client_local_ip__', client_local_ip);
+  // console.log('__client_local_ip__', client_local_ip);
 
   return res.status(200).json({ active: true, message: 'Printer server is up', ip_info: { ...req.socket.address(), client_local_ip } })
 })
@@ -36,7 +37,7 @@ app.post(
   '/print',
   upload('uploads').single('file'),
   async (req: Request, res: Response) => {
-    console.log('__RAN__');
+    console.log('__[/print]__RAN__');
     //@ts-ignore
     const filePath = `${req.file.path}`
     // const printCount = req.body.copies
