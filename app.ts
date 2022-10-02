@@ -8,6 +8,7 @@ import dotenv from 'dotenv'
 import { FullRequest, Printer } from 'ipp'
 import { unlinkFile, get_network_ipv4 } from './utils'
 import http from 'http';
+import https from 'https';
 
 
 
@@ -21,8 +22,9 @@ app.get('/', function (req: Request, res: Response) {
 })
 app.get('/get_remote_ipv4', function (req: Request, res: Response) {
   let ipv4 = req.socket.remoteAddress;
-  console.log('__IPV4__', ipv4);
-  return res.status(200).json({ active: true, message: 'Printer server is up', ipv4, socket: JSON.stringify(req.socket) })
+  // console.log('__SOCKET__', req.socket.address());
+  // console.log('__IPV4__', ipv4);
+  return res.status(200).json({ active: true, message: 'Printer server is up', ipv4, ...req.socket.address() })
 })
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))) //  "public" off of current is root
 app.use(express.urlencoded({ extended: false }))
@@ -80,18 +82,21 @@ app.post(
     }
   },
 )
-// const httpsOptions = {
-//   key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
-//   cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
-// }
-const server = http.createServer(app)
+
+let server = null;
 if (process.env.NODE_ENV === 'development') {
   let networkIP = get_network_ipv4();
+  const httpsOptions = {
+    key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
+    cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
+  }
+  server = https.createServer(httpsOptions, app)
   server.listen(port, `${networkIP}`, undefined, () => {
     console.log(`${process.env.PROJECT} is listening on https://${networkIP}:${port}`)
     logger.info(`${process.env.PROJECT} is listening on https://${networkIP}:${port}`)
   })
 } else {
+  server = http.createServer(app)
   server.listen(port, () => {
     console.log(`${process.env.PROJECT} is listening at PORT ${port}`)
     logger.info(`${process.env.PROJECT} is listening at PORT ${port}`)
