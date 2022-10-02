@@ -7,7 +7,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import { FullRequest, Printer } from 'ipp'
 import { unlinkFile, get_network_ipv4 } from './utils'
-import https from 'https';
+import http from 'http';
 
 
 
@@ -80,11 +80,11 @@ app.post(
     }
   },
 )
-const httpsOptions = {
-  key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
-  cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
-}
-const server = https.createServer(httpsOptions, app)
+// const httpsOptions = {
+//   key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
+//   cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
+// }
+const server = http.createServer(app)
 if (process.env.NODE_ENV === 'development') {
   let networkIP = get_network_ipv4();
   server.listen(port, `${networkIP}`, undefined, () => {
